@@ -18,7 +18,7 @@
   :license "LLGPL"
   :depends-on (:cl-annot
                :optima
-               :arrow-macros)
+               :alexandria)
   :components ((:module "src"
                 :components
                 ((:file "cl-dbc-lclj"))))
