@@ -5,14 +5,14 @@
    :alexandria))
 (in-package :cl-dbc-lclj)
 
-(defmacro with-dbc (pre post &body body)
-  `(progn
-     (assert (and ,@pre))
-     (funcall #'(lambda (%)
-                  (assert (and ,@post))
-                  %)
-              (progn
-                ,@body))))
+;; (defmacro with-dbc (pre post &body body)
+;;   `(progn
+;;      (assert (and ,@pre))
+;;      (funcall #'(lambda (%)
+;;                   (assert (and ,@post))
+;;                   %)
+;;               (progn
+;;                 ,@body))))
 
 ;; (with-dbc
 ;;     ((not (zerop n)) (numberp n))
@@ -27,18 +27,28 @@
 ;;                %)
 ;;            (PROGN (* N N))))
 
+(defmacro make-asserts (asserts)
+  `(progn
+     ,@(loop :for a :in asserts :collect
+             `(assert ,a))))
+
 ;; (defmacro with-dbc (conds &body body)
-;;   `(progn
-;;      (with-gensyms (i pre post)
-;;        (let ((pre (match conds
-;;                     ((property :pre ))))))
-;;        ,@(loop :for i :in conds :collect
-;;                `(assert i)))
-;;      (funcall #'(lambda (%)
-;;                   (assert (and ,@post))
-;;                   %)
-;;               (progn
-;;                 ,@body))))
+;;   (with-gensyms (pre post)
+;;     `(progn     
+;;        (let ((,pre (match ,conds
+;;                     ((property :pre pre-conds) pre-conds)
+;;                     (otherwise t)))
+;;              (,post (match ,conds
+;;                      ((property :post post-conds) post-conds)
+;;                      (otherwise t)))))
+;;        ,@(loop :for i :in pre :collect
+;;                `(assert ,i))
+;;        (funcall #'(lambda (%)
+;;                     ,@(loop :for i :in post :collect
+;;                             `(assert ,i))
+;;                     %)
+;;                 (progn
+;;                   ,@body)))))
 
 ;; (with-dbc
 ;;     (:pre  ((not (zerop n)) (numberp n))
@@ -54,8 +64,8 @@
 ;;                (assert (numberp %)))
 ;;            (* n n)))
 
-(defun test-add (x y)
-  (with-dbc
-      ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
-      ((not (= 0 %)))
-    (+ x y)))
+;; (defun test-add (x y)
+;;   (with-dbc
+;;       ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
+;;       ((not (= 0 %)))
+;;     (+ x y)))
