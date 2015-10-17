@@ -28,27 +28,29 @@
 ;;            (PROGN (* N N))))
 
 (defmacro make-asserts (asserts)
-  `(progn
-     ,@(loop :for a :in asserts :collect
-             `(assert ,a))))
+  (cond ((consp asserts)
+         `(progn
+            ,@(loop :for a :in asserts :collect
+                    `(assert ,a))))
+        (t nil)))
 
-;; (defmacro with-dbc (conds &body body)
-;;   (with-gensyms (pre post)
-;;     `(progn     
-;;        (let ((,pre (match ,conds
-;;                     ((property :pre pre-conds) pre-conds)
-;;                     (otherwise t)))
-;;              (,post (match ,conds
-;;                      ((property :post post-conds) post-conds)
-;;                      (otherwise t)))))
-;;        ,@(loop :for i :in pre :collect
-;;                `(assert ,i))
-;;        (funcall #'(lambda (%)
-;;                     ,@(loop :for i :in post :collect
-;;                             `(assert ,i))
-;;                     %)
-;;                 (progn
-;;                   ,@body)))))
+;; Don't work
+(defmacro with-dbc (conds &body body)
+  (with-gensyms (pre post)
+    `(progn
+       (let ((,pre (match ,conds
+                     ((property :pre pre-conds) pre-conds)
+                     (otherwise t)))
+             (,post (match ,conds
+                      ((property :post post-conds) post-conds)
+                      (otherwise t)))))
+       ,(print pre)
+       ,(make-asserts pre)
+       (funcall #'(lambda (%)
+                    ,(make-asserts post)
+                    %)
+                (progn
+                  ,@body)))))
 
 ;; (with-dbc
 ;;     (:pre  ((not (zerop n)) (numberp n))
@@ -64,8 +66,8 @@
 ;;                (assert (numberp %)))
 ;;            (* n n)))
 
-;; (defun test-add (x y)
-;;   (with-dbc
-;;       ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
-;;       ((not (= 0 %)))
-;;     (+ x y)))
+(defun test-add (x y)
+  (with-dbc
+      ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
+      ((not (= 0 %)))
+    (+ x y)))
