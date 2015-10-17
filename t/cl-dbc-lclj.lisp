@@ -9,6 +9,10 @@
 
 (plan nil)
 
-;; blah blah blah.
+(is-expand (cl-dbc-lclj::make-asserts ((not (zerop 1)) (numberp 1)))
+           (PROGN
+             (ASSERT (NOT (ZEROP 1)))
+             (ASSERT (NUMBERP 1))))
+
 
 (finalize)
