@@ -17,15 +17,4 @@
   (is-expand (cl-dbc-lclj::make-asserts t)
              nil))
 
-(subtest "cond-extracter"
-  (is-expand (cl-dbc-lclj::cond-extracter :pre (:pre ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
-                                   :post ((not (= 0 %)))))
-             ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))))
-
 (finalize)
-
-
-
-
-
-
