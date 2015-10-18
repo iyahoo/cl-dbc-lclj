@@ -17,26 +17,15 @@
   (is-expand (cl-dbc-lclj::make-asserts t)
              nil))
 
-(subtest "with-dbc"
-  (is-expand (cl-dbc-lclj::with-dbc
-                 (:pre  ((not (zerop n)) (numberp n))
-                  :post ((plusp %) (numberp %)))
-               (* n n))
-             (progn
-               (let (($ (match (:pre ((not (zerop n)) (numberp n))
-                                :post ((plusp %) (numberp %)))
-                          ((property :pre pre-conds) pre-conds)
-                          (otherwise t)))
-                     ($ (match (:pre ((not (zerop n)) (numberp n))
-                                :post ((plusp %) (numberp %)))
-                          ((property :post post-conds) post-conds)
-                          (otherwise t))))
-                 (make-asserts $)
-                 (funcall #'(lambda (%)
-                              (make-asserts $)
-                              %)
-                          (progn
-                            (* n n)))))))
-
+(subtest "cond-extracter"
+  (is-expand (cl-dbc-lclj::cond-extracter :pre (:pre ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
+                                   :post ((not (= 0 %)))))
+             ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))))
 
 (finalize)
+
+
+
+
+
+
