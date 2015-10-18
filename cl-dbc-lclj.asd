@@ -16,7 +16,8 @@
   :version "0.1"
   :author "cl-yaho"
   :license "LLGPL"
-  :depends-on (:cl-annot
+  :depends-on (:cl-syntax
+               :cl-syntax-annot
                :optima
                :alexandria)
   :components ((:module "src"
