@@ -28,6 +28,14 @@
                             (cl-dbc-lclj::make-asserts ((not (= 0 %))))
                             cl-dbc-lclj::%)
                         (progn
-                          (+ n n))))))
+                          (+ n n)))))
+  ;; I don't know why this is error. (This is undefined variable: CL-DBC-LCLJ-TEST::%)
+  ;; (is (let ((n 10))
+  ;;       (with-dbc
+  ;;           (:pre  ((not (zerop n)) (numberp n))
+  ;;            :post ((plusp %) (numberp %)))
+  ;;         (* n n)))
+  ;;     53)
+  )
 
 (finalize)
