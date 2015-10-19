@@ -11,6 +11,7 @@
 
 (subtest "make-asserts"
   (is-expand (cl-dbc-lclj::make-asserts ((not (zerop 1)) (numberp 1)))
+             ;; =>
              (progn
                (assert (not (zerop 1)))
                (assert (numberp 1))))
@@ -22,6 +23,7 @@
                  (:pre ((not (= x 0)) (< y 100) (and (oddp x) (evenp y)))
                   :post ((not (= 0 %))))
                (+ n n))
+             ;; =>
              (progn
                (cl-dbc-lclj::make-asserts ((not (= x 0)) (< y 100) (and (oddp x) (evenp y))))
                (funcall #'(lambda (cl-dbc-lclj::%)
@@ -39,5 +41,17 @@
   ;;         (* n n)))
   ;;     53)
   )
+
+(subtest "defunc"
+  (is-expand (defunc test (a b)
+               (:pre ((not (zerop a)) (numberp a))
+                :post ((plusp %)))
+               (+ a b))
+             ;; =>
+             (defun test (a b)
+               (with-dbc
+                 (:pre ((not (zerop a)) (numberp a))
+                  :post ((plusp %)))
+                 (+ a b)))))
 
 (finalize)
