@@ -1,9 +1,7 @@
 (in-package :cl-user)
 (defpackage cl-dbc-lclj
   (:use :cl
-        :optima)
-  (:import-from :alexandria
-                :with-gensyms))
+        :optima))
 (in-package :cl-dbc-lclj)
 
 (cl-syntax:use-syntax :annot)
