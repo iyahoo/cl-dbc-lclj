@@ -36,10 +36,10 @@
 
   ;; (is (let ((n 10))
   ;;       (with-dbc
-  ;;           (:pre  ((not (zerop n)) (numberp n))
-  ;;            :post ((plusp %) (numberp %)))
-  ;;         (* n n)))
-  ;;     53)
+  ;;         (:pre  ((not (zerop n)) (numberp n))
+  ;;          :post ((plusp %) (numberp %)))
+  ;;         (* n n))
+  ;;       100))
   )
 
 (subtest "defunc"
