@@ -9,8 +9,8 @@
 (defmacro make-asserts (asserts)
   (cond ((consp asserts)
          `(progn
-            ,@(loop :for a :in asserts :collect
-                    `(assert ,a))))
+            ,@(loop :for a :in asserts
+                    :collect `(assert ,a))))
         (t nil)))
 
 @export
