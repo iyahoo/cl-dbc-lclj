@@ -30,19 +30,3 @@
                     %)
                 (progn
                   ,@body)))))
-
-;; (with-dbc
-;;     (:pre  ((not (zerop n)) (numberp n))
-;;      :post ((plusp %) (numberp %)))
-;;   (* n n))
-;;
-;; =>
-;; (progn
-;;   (progn
-;;     (assert (not (zerop n)))
-;;     (assert (numberp n)))
-;;   (funcall #'(lambda (%)
-;;                (progn
-;;                  (assert (plusp %))
-;;                  (assert (numberp %))))
-;;            (* n n)))
