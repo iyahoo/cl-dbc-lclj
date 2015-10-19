@@ -30,7 +30,7 @@
                         (progn
                           (+ n n)))))
   ;; I don't know why this is error. (This is undefined variable: CL-DBC-LCLJ-TEST::%)
-  ;; Why evaluation of expression is early than expanding2 macro?
+  ;; Why evaluation of expression is early than expanding macro?
 
   ;; (is (let ((n 10))
   ;;       (with-dbc
