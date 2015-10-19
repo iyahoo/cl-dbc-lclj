@@ -17,6 +17,7 @@
 
 @export
 (defmacro with-dbc (conds &body body)
+  "stands for with design by contract."
   (let ((pre (match conds
                ((property :pre pre-conds) pre-conds)
                (otherwise t)))
@@ -30,3 +31,10 @@
                     %)
                 (progn
                   ,@body)))))
+
+@export
+(defmacro defunc (name args conds &body body)
+  "stands for defun with contract."
+  `(defun ,name ,args
+     (with-dbc ,conds
+       ,@body)))
