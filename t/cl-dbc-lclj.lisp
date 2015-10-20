@@ -31,16 +31,13 @@
                             cl-dbc-lclj::%)
                         (progn
                           (+ n n)))))
-  ;; I don't know why this have error (This is undefined variable: CL-DBC-LCLJ-TEST::%)
-  ;; Why evaluation of expression is early than expanding macro?
-
-  ;; (is (let ((n 10))
-  ;;       (with-dbc
-  ;;         (:pre  ((not (zerop n)) (numberp n))
-  ;;          :post ((plusp %) (numberp %)))
-  ;;         (* n n))
-  ;;       100))
-  )
+  ;; I want to test without namespace
+  (let ((n 10))
+    (is (with-dbc
+          (:pre  ((not (zerop n)) (numberp n))
+           :post ((plusp cl-dbc-lclj::%) (numberp cl-dbc-lclj::%)))
+          (* n n))
+        100)))
 
 (subtest "defunc"
   (is-expand (defunc test (a b)
