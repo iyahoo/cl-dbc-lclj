@@ -7,11 +7,12 @@
 (cl-syntax:use-syntax :annot)
 
 (defmacro make-asserts (asserts)
-  (cond ((consp asserts)
-         `(progn
-            ,@(loop :for a :in asserts
-                    :collect `(assert ,a))))
-        (t nil)))
+  (cond
+    ((consp asserts)
+     `(progn
+        ,@(loop :for a :in asserts
+                :collect `(assert ,a))))
+    (t nil)))
 
 @export
 (defmacro with-dbc (conds &body body)
