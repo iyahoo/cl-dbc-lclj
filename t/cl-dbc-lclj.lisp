@@ -37,6 +37,16 @@
           (:pre  ((not (zerop n)) (numberp n))
            :post ((plusp cl-dbc-lclj::%) (numberp cl-dbc-lclj::%)))
           (* n n))
+        100)
+
+    (is (with-dbc
+          (:pre ((not (zerop n))))
+          (* n n))
+        100)
+
+    (is (with-dbc
+          (:post ((plusp cl-dbc-lclj::%)))
+          (* n n))
         100)))
 
 (subtest "defunc"
