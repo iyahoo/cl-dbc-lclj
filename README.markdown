@@ -44,6 +44,20 @@ This provides only macros `defunc` and `with-dbc`.
   11)
 ;=> The assertion (= 10 %) failed with % = 11.
 
+; You can use some conditions.
+(let ((x 5) (y 10))
+  (with-dbc
+    (:pre ((oddp x) (evenp y))
+     :post ((integerp %) (oddp %)))
+    (+ x y)))
+;=> 15
+
+(let ((x 5) (y 10))
+  (with-dbc
+    (:pre ((oddp x) (evenp y))
+     :post ((integerp %) (evenp %)))
+    (+ x y)))
+;=> The assertion (EVENP %) failed with % = 15.
 ```
 
 ## Installation
