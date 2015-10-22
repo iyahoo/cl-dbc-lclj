@@ -32,7 +32,7 @@ This provides only macros `defunc` and `with-dbc`.
     (:pre ((= x 10))
      :post ((= % 21)))
     (+ x x)))
-;=> The assertion (= % 21) failed with % = 10.
+;=> The assertion (= % 21) failed with % = 20.
 
 (with-dbc
   (:post ((= 10 %)))
