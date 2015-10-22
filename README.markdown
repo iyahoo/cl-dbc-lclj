@@ -14,14 +14,14 @@ This provides only macros `defunc` and `with-dbc`.
    :post ((plusp %)))
   (+ x y))
 
-;> (add 3 -4)
-;=> -1
-
 ;> (add 3 3)
-;=> The assertion (MINUSP Y) failed with Y = 3.
+;=> 6
 
-;> (add 3 -2)
-;=> The assertion (MINUSP %) failed with % = 1.
+;> (add -3 3)
+;=> The assertion (PLUSP X) failed with X = -3.
+
+;> (add 3 -4)
+;=> The assertion (PLUSP %) failed with % = -1.
 ```
 
 `with-dbc` can check all expression with dbc.
