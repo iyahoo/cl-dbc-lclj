@@ -17,9 +17,7 @@
   :author "cl-yaho"
   :license "LLGPL"
   :depends-on (:cl-syntax
-               :cl-syntax-annot
-               :optima
-               :alexandria)
+               :cl-syntax-annot)
   :components ((:module "src"
                 :components
                 ((:file "cl-dbc-lclj"))))
