@@ -9,14 +9,25 @@
 
 (plan nil)
 
+(setf (symbol-function 'property) #'cl-dbc-lclj::property)
+
 (subtest "make-asserts"
   (is-expand (cl-dbc-lclj::make-asserts ((not (zerop 1)) (numberp 1)))
              ;; =>
              (progn
                (assert (not (zerop 1)))
                (assert (numberp 1))))
-  (is-expand (cl-dbc-lclj::make-asserts t)
+  (is-expand (cl-dbc-lclj::make-asserts nil)
              nil))
+
+(subtest "property"
+  (let ((lst '(:pre ((integerp 1)) :post ((integerp %)))))
+    (is (property :pre lst)
+        '((integerp 1)))
+    (is (property :post lst)
+        '((integerp %)))
+    (is (property :key lst)
+        nil)))
 
 (subtest "with-dbc"
   (is-expand (with-dbc
