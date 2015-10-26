@@ -33,7 +33,7 @@
 
 @export
 (defmacro defunc (name args str-or-conds conds-or-body1 &body body)
-  "stands for defun with contract. This can use documentation string."
+  "stands for defun with contract. Defunc can use documentation string such as defun."
   (if (stringp str-or-conds)
       (let ((str str-or-conds)          ; change symbol name, so
             (conds conds-or-body1))     ; (setf (symbol-value 'str) str-or-conds) is more better?
