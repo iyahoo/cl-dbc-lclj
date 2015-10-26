@@ -70,6 +70,18 @@
                (with-dbc
                  (:pre ((not (zerop a)) (numberp a))
                   :post ((plusp %)))
+                 (+ a b))))
+  (is-expand (defunc test (a b)
+               "test-str"
+               (:pre ((not (zerop a)) (numberp a))
+                :post ((plusp %)))
+               (+ a b))
+             ;; =>
+             (defun test (a b)
+               "test-str"
+               (with-dbc
+                 (:pre ((not (zerop a)) (numberp a))
+                  :post ((plusp %)))
                  (+ a b)))))
 
 (finalize)
