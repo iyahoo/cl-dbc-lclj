@@ -32,8 +32,19 @@
                   ,@body)))))
 
 @export
-(defmacro defunc (name args conds &body body)
+(defmacro defunc (name args str-or-conds conds-or-body1 &body body)
   "stands for defun with contract."
-  `(defun ,name ,args
-     (with-dbc ,conds
-       ,@body)))
+  (if (stringp str-or-conds)
+      (let ((str str-or-conds)          ; change symbol name, so
+            (conds conds-or-body1))     ; (setf (symbol-value 'str) str-or-conds) is more better?
+        `(defun ,name ,args
+           ,str
+           (with-dbc ,conds
+             ,@body)))
+      (progn
+        (let ((conds str-or-conds)
+              (body1 conds-or-body1))
+          `(defun ,name ,args
+             (with-dbc ,conds
+               ,body1
+               ,@body))))))
