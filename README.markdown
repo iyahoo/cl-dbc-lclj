@@ -65,7 +65,7 @@ In the folder included in quicklisp path,
 
 `$ git clone https://github.com/iyahoo/cl-dbc-lclj.git`
 
-and on lisp processing,
+and on lisp processor,
 
 ```Lisp
 (ql:quickload :cl-dbc-lclj)
