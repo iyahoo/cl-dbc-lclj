@@ -25,11 +25,9 @@
         (post (property :post conds)))
     `(progn
        (make-asserts ,pre)
-       (funcall #'(lambda (%)
-                    (make-asserts ,post)
-                    %)
-                (progn
-                  ,@body)))))
+       (let ((% (progn ,@body)))
+         (make-asserts ,post)
+         %))))
 
 @export
 (defmacro defunc (name args str-or-conds conds-or-body1 &body body)

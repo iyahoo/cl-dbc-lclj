@@ -37,11 +37,11 @@
              ;; =>
              (progn
                (cl-dbc-lclj::make-asserts ((not (= x 0)) (< y 100) (and (oddp x) (evenp y))))
-               (funcall #'(lambda (cl-dbc-lclj::%)
-                            (cl-dbc-lclj::make-asserts ((not (= 0 %))))
-                            cl-dbc-lclj::%)
-                        (progn
-                          (+ n n)))))
+               (let ((cl-dbc-lclj::% (progn
+                          (+ n n))))
+                 (cl-dbc-lclj::make-asserts ((not (= 0 %))))
+                 cl-dbc-lclj::%)))
+
   ;; I want to test without namespace
   (let ((n 10))
     (is (with-dbc
