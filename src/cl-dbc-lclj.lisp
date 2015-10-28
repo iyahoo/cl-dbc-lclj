@@ -47,3 +47,6 @@
            (with-dbc ,conds
              ,body1
              ,@body)))))
+
+(defun test ()
+  (asdf:test-system :cl-dbc-lclj))
