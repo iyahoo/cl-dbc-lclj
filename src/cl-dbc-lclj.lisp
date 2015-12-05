@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage cl-dbc-lclj
-  (:use :cl))
+  (:use :cl)
+  (:export #:%))
 (in-package :cl-dbc-lclj)
 
 (cl-syntax:use-syntax :annot)
