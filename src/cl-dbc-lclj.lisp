@@ -35,7 +35,7 @@
   "stands for defun with contract. Defunc can use documentation string such as defun."
   (if (stringp str-or-conds)
       (let ((str str-or-conds)          ; change symbol name, so
-            (conds conds-or-body1))     ; (setf (symbol-value 'str) str-or-conds) is more better?
+            (conds conds-or-body1))     ; (setf (symbol-value 'str) str-or-conds) is better?
         `(defun ,name ,args
            ,str
            (with-dbc ,conds
