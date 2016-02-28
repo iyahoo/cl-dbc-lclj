@@ -6,7 +6,7 @@ Common Lisp with design by contract like Clojure.
 
 This provides only macros `defunc` and `with-dbc`.
 
-`defunc` is stands for DEFUN with design by Contract.
+`defunc` stands for DEFUN with design by Contract.
 
 ```Lisp
 (defunc add (x y)
